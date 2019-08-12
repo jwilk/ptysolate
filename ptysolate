@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Copyright © 2019 Jakub Wilk <jwilk@jwilk.net>
+# SPDX-License-Identifier: MIT
+
+set -e -u
+prog="${0##*/}"
+eval '_="${0@Q}"' 2>/dev/null || {
+    printf '%s: bash >= 4.4 is required\n' "$prog" >&2
+    exit 1
+}
+if [ $# -eq 0 ]
+then
+    printf 'Usage: %s CMD [ARGS...]\n' "$prog" >&2
+    exit 1
+fi
+exec script -q -c "exec ${*@Q}" /dev/null
+
+# vim:ts=4 sts=4 sw=4 et
